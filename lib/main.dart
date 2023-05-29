@@ -1,9 +1,26 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:task/otp.dart';
 import 'package:task/phone.dart';
+import 'package:task/home.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
-    MaterialApp(home: MyApp()),
+    MaterialApp(
+        home: const MyApp(),
+        debugShowCheckedModeBanner: false,
+        initialRoute: 'start',
+        routes: {
+          'start': (context) => const MyApp(),
+          'phone': (context) => const MobileNo(),
+          'otp': (context) => Otp(
+                phone: "",
+              ),
+          'home': (context) => const MyHome()
+        }),
   );
 }
 
@@ -28,7 +45,9 @@ class _MyAppState extends State<MyApp> {
       padding: const EdgeInsets.only(top: 0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          const Spacer(),
           Center(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -38,19 +57,19 @@ class _MyAppState extends State<MyApp> {
               const SizedBox(
                 height: 30,
               ),
-              const Text(
+              Text(
                 'Please select your Language',
-                style: TextStyle(
+                style: GoogleFonts.roboto(
                     color: Colors.black,
-                    fontSize: 20,
+                    fontSize: 22,
                     fontWeight: FontWeight.w700),
               ),
               const SizedBox(
                 height: 8,
               ),
-              const Text(
+              Text(
                 'You can change the language \n at any time.',
-                style: TextStyle(
+                style: GoogleFonts.roboto(
                   color: Colors.black,
                   fontSize: 14,
                 ),
@@ -74,7 +93,7 @@ class _MyAppState extends State<MyApp> {
                       iconSize: 36,
                       isExpanded: true,
                       underline: SizedBox(),
-                      style: const TextStyle(
+                      style: GoogleFonts.montserrat(
                           color: Color.fromARGB(255, 47, 48, 55), fontSize: 16),
                       value: _selectedCategory,
                       items: Category.values
@@ -112,25 +131,26 @@ class _MyAppState extends State<MyApp> {
                             MaterialPageRoute(
                                 builder: (context) => MobileNo()));
                       },
-                      child:
-                          const Text('NEXT', style: TextStyle(fontSize: 16)))),
+                      child: Text('NEXT',
+                          style: GoogleFonts.montserrat(fontSize: 16)))),
             ],
           )),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Stack(
-                children: [
-                  Image.asset(
-                    'asset/images/Vector.png',
-                    fit: BoxFit.cover,
-                    alignment: Alignment.bottomLeft,
+          const Spacer(),
+          FittedBox(
+            fit: BoxFit.fitWidth,
+            child: Stack(
+              children: [
+                Image.asset(
+                  'asset/images/Vector.png',
+                ),
+                Positioned(
+                  bottom: 0,
+                  child: Image.asset(
+                    'asset/images/Vector-1.png',
                   ),
-                  Image.asset('asset/images/Vector-1.png',
-                      fit: BoxFit.cover, alignment: Alignment.bottomCenter)
-                ],
-              ),
-            ],
+                )
+              ],
+            ),
           ),
         ],
       ),
