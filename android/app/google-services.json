@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "678332182311",
-    "project_id": "authentication-658a3",
-    "storage_bucket": "authentication-658a3.appspot.com"
+    "project_number": "697898258732",
+    "project_id": "phone-verification-bba9e",
+    "storage_bucket": "phone-verification-bba9e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:678332182311:android:2df352dc502dd52aa14302",
+        "mobilesdk_app_id": "1:697898258732:android:ec3f0f1a07ac8d9f4d9c89",
         "android_client_info": {
           "package_name": "com.example.task"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBqMtcFLcbm6hoofp23nB2ZxRpua9_YX7E"
+          "current_key": "AIzaSyBCVUcOqoeoB2wdq8NJNMO-ZlmWP-vE1iA"
         }
       ],
       "services": {
