@@ -10,6 +10,7 @@ class PinInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      autofocus: true,
       onChanged: (value) {
         code = code + value;
         //autofill
@@ -17,7 +18,8 @@ class PinInput extends StatelessWidget {
           FocusScope.of(context).nextFocus();
         }
         if (value.length == 0 && first == false) {
-          FocusScope.of(context).previousFocus();
+          code = code.substring(0, code.length - 1);
+          // FocusScope.of(context).previousFocus();
         }
       },
       keyboardType: TextInputType.number,

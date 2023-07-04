@@ -42,6 +42,7 @@ class _MobileNoState extends State<MobileNo> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -51,129 +52,132 @@ class _MobileNoState extends State<MobileNo> {
               Navigator.pop(context);
             },
             icon: const Icon(Icons.close),
-            color: Colors.black,
+            color: const Color.fromRGBO(0, 0, 0, 1),
           ),
         ),
         body: Padding(
           padding: const EdgeInsets.only(top: 0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Spacer(),
-              Center(
-                child: Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(
-                        'Please enter your mobile number',
-                        style: GoogleFonts.roboto(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.black),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        'You\'ll receive a 6 digit code\n to verify next.',
-                        style: GoogleFonts.roboto(
-                          color: Colors.black,
-                          fontSize: 14,
+          child: Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Spacer(),
+                Center(
+                  child: Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          'Please enter your mobile number',
+                          style: GoogleFonts.roboto(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.black),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 16.0, right: 16.0),
-                        child: IntlPhoneField(
-                          invalidNumberMessage: null,
-                          showDropdownIcon: false,
-                          dropdownTextStyle: TextStyle(fontSize: 20),
-                          flagsButtonMargin:
-                              const EdgeInsets.only(left: 10, right: 20),
-                          decoration: InputDecoration(
-                            counterText: '',
-                            focusedErrorBorder: const OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(width: 1, color: Colors.black),
-                            ),
-                            hintText: 'Mobile Number',
-                            hintStyle: GoogleFonts.montserrat(
-                                fontSize: 20,
-                                color: Color.fromARGB(255, 106, 108, 123)),
-                            enabledBorder: const OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(width: 1, color: Colors.black),
-                            ),
-                            focusedBorder: const OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(width: 1, color: Colors.black),
-                            ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          'You\'ll receive a 6 digit code\n to verify next.',
+                          style: GoogleFonts.roboto(
+                            color: Colors.black,
+                            fontSize: 14,
                           ),
-                          initialCountryCode: 'IN',
-                          onChanged: (phone) {
-                            setState(() {
-                              codeMobile = phone.completeNumber;
-                              mobile = phone.number;
-                            });
-                          },
+                          textAlign: TextAlign.center,
                         ),
-                      ),
-                      const SizedBox(
-                        height: 14,
-                      ),
-                      Container(
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Container(
                           margin:
                               const EdgeInsets.only(left: 16.0, right: 16.0),
-                          height: 56,
-                          child: ElevatedButton(
-                              style: TextButton.styleFrom(
-                                  backgroundColor:
-                                      Color.fromARGB(255, 46, 59, 98)),
-                              onPressed: () async {
-                                String phoneNumberr =
-                                    '${codeMobile! + phoneNumber.text}';
-                                await FirebaseAuthentication()
-                                    .sendOTP(phoneNumberr);
+                          child: IntlPhoneField(
+                            invalidNumberMessage: null,
+                            showDropdownIcon: false,
+                            dropdownTextStyle: TextStyle(fontSize: 20),
+                            flagsButtonMargin:
+                                const EdgeInsets.only(left: 10, right: 20),
+                            decoration: InputDecoration(
+                              counterText: '',
+                              focusedErrorBorder: const OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(width: 1, color: Colors.black),
+                              ),
+                              hintText: 'Mobile Number',
+                              hintStyle: GoogleFonts.montserrat(
+                                  fontSize: 20,
+                                  color: Color.fromARGB(255, 106, 108, 123)),
+                              enabledBorder: const OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(width: 1, color: Colors.black),
+                              ),
+                              focusedBorder: const OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(width: 1, color: Colors.black),
+                              ),
+                            ),
+                            initialCountryCode: 'IN',
+                            onChanged: (phone) {
+                              setState(() {
+                                codeMobile = phone.completeNumber;
+                                mobile = phone.number;
+                              });
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 14,
+                        ),
+                        Container(
+                            margin:
+                                const EdgeInsets.only(left: 16.0, right: 16.0),
+                            height: 56,
+                            child: ElevatedButton(
+                                style: TextButton.styleFrom(
+                                    backgroundColor:
+                                        Color.fromARGB(255, 46, 59, 98)),
+                                onPressed: () async {
+                                  String phoneNumberr =
+                                      '${codeMobile! + phoneNumber.text}';
+                                  await FirebaseAuthentication()
+                                      .sendOTP(phoneNumberr);
 
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Otp(phone: mobile),
-                                  ),
-                                );
-                              },
-                              child: Text('CONTINUE',
-                                  style:
-                                      GoogleFonts.montserrat(fontSize: 16)))),
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Otp(phone: mobile),
+                                    ),
+                                  );
+                                },
+                                child: Text('CONTINUE',
+                                    style:
+                                        GoogleFonts.montserrat(fontSize: 16)))),
+                      ],
+                    ),
+                  ),
+                ),
+                const Spacer(),
+                FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Stack(
+                    children: [
+                      Image.asset(
+                        'asset/images/Vector 3.png',
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        child: Image.asset(
+                          'asset/images/Vector2.png',
+                        ),
+                      ),
                     ],
                   ),
                 ),
-              ),
-              const Spacer(),
-              FittedBox(
-                fit: BoxFit.fitWidth,
-                child: Stack(
-                  children: [
-                    Image.asset(
-                      'asset/images/Vector 3.png',
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      child: Image.asset(
-                        'asset/images/Vector2.png',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
